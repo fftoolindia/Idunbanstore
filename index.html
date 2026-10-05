@@ -11,9 +11,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Tesseract.js for Browser-Side OCR -->
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
 
   <script>
     tailwind.config = {
@@ -52,13 +49,27 @@
       border: 1px solid rgba(255, 107, 0, 0.4);
       box-shadow: 0 0 20px rgba(255, 107, 0, 0.15);
     }
-    .neon-border-red {
-      border: 1px solid rgba(255, 42, 42, 0.45);
-      box-shadow: 0 0 25px rgba(255, 42, 42, 0.2);
+    .neon-border-purple {
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.15);
     }
-    .neon-border-green {
-      border: 1px solid rgba(16, 185, 129, 0.5);
-      box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+    .neon-border-blue {
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    }
+    .comment-scroll::-webkit-scrollbar {
+      width: 3px;
+    }
+    .comment-scroll::-webkit-scrollbar-thumb {
+      background: rgba(168, 85, 247, 0.4);
+      border-radius: 4px;
+    }
+    @keyframes commentIn {
+      0% { opacity: 0; transform: translateY(12px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .animate-comment {
+      animation: commentIn 0.35s ease-out forwards;
     }
   </style>
 </head>
@@ -86,8 +97,8 @@
           </p>
         </div>
       </div>
-      <a href="#pay-section" class="flex-shrink-0 bg-gradient-to-r from-orange-500 to-red-600 hover:opacity-90 text-white font-cyber text-[10px] font-bold py-1.5 px-2.5 rounded-md shadow-lg shadow-red-600/30 active:scale-95 transition-all text-center">
-        UNBAN (₹249)
+      <a href="#submit-section" class="flex-shrink-0 bg-gradient-to-r from-orange-500 to-red-600 hover:opacity-90 text-white font-cyber text-[10px] font-bold py-1.5 px-3 rounded-md shadow-lg shadow-red-600/30 active:scale-95 transition-all text-center">
+        UNBAN ID
       </a>
     </header>
 
@@ -134,63 +145,68 @@
           </video>
         </div>
         <p class="text-[10px] text-zinc-400 mt-1.5 text-center">
-          Video dekh kar payment aur submission step follow karein.
+          Video dekh kar step by step unban process follow karein.
         </p>
       </div>
     </section>
 
-    <!-- 3. THIRD: QR PAYMENT & PROOF SUBMISSION FORM -->
-    <section id="pay-section" class="px-3 py-2 w-full">
-      <div class="bg-gradient-to-b from-[#15121b] to-[#0c0d14] rounded-2xl p-3.5 neon-border-red relative">
+    <!-- 3. THIRD: LIVE REAL-TIME CHAT & FEEDBACK WIDGET -->
+    <section class="px-3 py-2 w-full">
+      <div class="bg-[#0b0c13] rounded-2xl p-3 border border-purple-500/30 neon-border-purple relative shadow-2xl overflow-hidden">
         
-        <!-- Price Header -->
+        <!-- Live Header Bar -->
+        <div class="flex items-center justify-between pb-2 border-b border-zinc-800/80 mb-2">
+          <div class="flex items-center gap-2">
+            <div class="relative flex items-center justify-center">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping absolute"></span>
+            </div>
+            <span class="font-cyber text-xs font-bold text-white tracking-wide">Live Comments</span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-black/60 px-2 py-0.5 rounded-full border border-zinc-800">
+            <span class="text-[11px] font-cyber text-purple-300 font-bold" id="liveViewerCount">1,538</span>
+            <span class="text-[9px] text-zinc-400 font-medium">watching</span>
+          </div>
+        </div>
+
+        <!-- Live Comments Feed Container -->
+        <div id="commentsFeed" class="comment-scroll space-y-2 max-h-[300px] overflow-y-auto pr-1">
+          <!-- Initial Comments Loaded Dynamically via JS -->
+        </div>
+
+        <!-- Typing Status Indicator -->
+        <div class="pt-2 mt-2 border-t border-zinc-800/60 flex items-center justify-between text-[10px] text-zinc-400">
+          <div class="flex items-center gap-1.5">
+            <div class="flex space-x-1">
+              <div class="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+              <div class="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+              <div class="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+            </div>
+            <span id="typingNotice" class="text-zinc-500 text-[10px] italic">Users commenting right now...</span>
+          </div>
+          <span class="text-[9px] font-cyber text-zinc-500">Auto-updating</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. FOURTH: ID UNBAN REQUEST SUBMISSION FORM -->
+    <section id="submit-section" class="px-3 py-2 w-full">
+      <div class="bg-gradient-to-b from-[#15121b] to-[#0c0d14] rounded-2xl p-3.5 border border-orange-500/40 relative shadow-xl">
+        
         <div class="text-center mb-3">
-          <span class="bg-red-500 text-white font-cyber text-[9px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider">
-            Special Discount
+          <span class="bg-orange-500 text-white font-cyber text-[9px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider">
+            OFFICIAL SERVER QUEUE
           </span>
-          <h3 class="font-cyber text-sm font-black text-white mt-1 leading-snug">
-            PAID ID UNBAN KE LIYE <span class="text-orange-400">₹249</span> IS QR ME PAY KAREIN
+          <h3 class="font-cyber text-sm font-black text-white mt-1.5 leading-snug">
+            SUBMIT BANNED ID DETAILS
           </h3>
-          <div class="flex items-center justify-center gap-2 mt-1">
-            <span class="text-xs line-through text-zinc-500 font-bold">₹629</span>
-            <span class="text-base font-black text-emerald-400 font-cyber">₹249 ONLY</span>
-            <span class="bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-1.5 py-0.2 rounded border border-emerald-500/30">60% OFF</span>
-          </div>
-        </div>
-
-        <!-- Warning Disclaimer -->
-        <div class="bg-red-950/70 border border-red-600/70 rounded-xl p-2.5 mb-3.5 shadow-md">
-          <div class="flex items-start gap-2">
-            <svg class="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-            </svg>
-            <div class="text-[11px] leading-snug text-red-200">
-              <strong class="text-white block font-cyber text-[10px] uppercase">Strict Warning / Disclaimer:</strong>
-              Fake payment ya ₹249 se kam pay karne par payment track nahi hoga aur ID unban request direct reject ho jayegi!
-            </div>
-          </div>
-        </div>
-
-        <!-- Updated QR Display -->
-        <div class="flex flex-col items-center justify-center mb-4">
-          <div class="p-2 bg-white rounded-xl shadow-xl border-2 border-orange-500/80 cursor-pointer relative group" onclick="openQrModal()">
-            <img 
-              id="qrImgDisplay"
-              src="https://raw.githubusercontent.com/fftoolindia/Only-photo/main/IMG_20261004_194603_613.jpg" 
-              alt="Scan QR To Pay 249" 
-              class="w-48 h-auto object-contain rounded"
-            >
-            <div class="absolute inset-0 bg-black/40 rounded opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
-              <span class="bg-black/80 text-white font-cyber text-[10px] px-2 py-1 rounded">TAP TO ENLARGE</span>
-            </div>
-          </div>
-          <p class="text-[10px] text-zinc-400 mt-2 font-medium">
-            Scan using PhonePe / Google Pay / Paytm / Any UPI App
+          <p class="text-[10px] text-zinc-400 mt-0.5">
+            Enter player info to initiate server unban protocol.
           </p>
         </div>
 
-        <!-- Verification Form -->
-        <form id="unbanForm" onsubmit="handleFormSubmit(event)" class="space-y-2.5">
+        <form id="unbanForm" onsubmit="handleFormSubmit(event)" class="space-y-3">
           <div>
             <label class="block text-[11px] font-cyber text-zinc-300 mb-1">
               BANNED PLAYER UID / GAME ID <span class="text-red-500">*</span>
@@ -219,140 +235,69 @@
 
           <div>
             <label class="block text-[11px] font-cyber text-zinc-300 mb-1">
-              12-DIGIT UPI UTR / TRANSACTION ID <span class="text-red-500">*</span>
+              BAN REASON / TYPE (OPTIONAL)
             </label>
-            <input 
-              type="text" 
-              id="utrNo" 
-              required 
-              placeholder="Enter 12 digit UTR number" 
-              maxlength="16"
-              class="w-full bg-black/70 border border-zinc-700 focus:border-orange-500 rounded-lg px-3 py-2 text-white text-xs outline-none transition-colors"
-            >
+            <select id="banType" class="w-full bg-black/70 border border-zinc-700 focus:border-orange-500 rounded-lg px-3 py-2 text-zinc-300 text-xs outline-none transition-colors">
+              <option value="Config / Glitch File Ban">Config / Glitch File Ban</option>
+              <option value="Temporary Suspended 3rd Party">Temporary Suspended 3rd Party</option>
+              <option value="Abnormal Activities Detected">Abnormal Activities Detected</option>
+              <option value="Permanent Blacklisted ID">Permanent Blacklisted ID</option>
+            </select>
           </div>
-
-          <div>
-            <label class="block text-[11px] font-cyber text-zinc-300 mb-1">
-              UPLOAD PAYMENT SCREENSHOT (₹249 To Shahadat Ali) <span class="text-red-500">*</span>
-            </label>
-            <div class="border-2 border-dashed border-zinc-700 hover:border-orange-500/80 rounded-lg p-3 text-center cursor-pointer bg-black/50 relative" onclick="document.getElementById('screenFile').click()">
-              <input type="file" id="screenFile" accept="image/*" required class="hidden" onchange="previewUpload(event)">
-              <div id="dropText">
-                <svg class="w-6 h-6 text-orange-400 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="text-xs text-zinc-300 block font-semibold">Tap to select payment screenshot</span>
-                <span class="text-[9px] text-zinc-500">Auto-checks name "Shahadat Ali" & "₹249"</span>
-              </div>
-              <div id="previewBox" class="hidden flex-col items-center">
-                <img id="previewImg" src="" alt="Proof Preview" class="max-h-28 rounded border border-zinc-600 mb-1">
-                <span class="text-[10px] text-emerald-400 font-bold">Screenshot Selected ✓ (Tap to change)</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Local OCR Scanning Status Banner -->
-          <div id="scanStatus" class="hidden rounded-lg p-2.5 text-center text-xs font-semibold"></div>
 
           <button 
             type="submit" 
             id="submitBtn"
             class="w-full mt-2 bg-gradient-to-r from-orange-500 via-red-600 to-orange-500 bg-[length:200%_auto] hover:bg-right font-cyber text-xs font-black text-white py-3 rounded-xl shadow-lg shadow-orange-500/30 active:scale-98 transition-all tracking-wider uppercase flex items-center justify-center gap-2"
           >
-            <span>SUBMIT & VERIFY PAYMENT (₹249)</span>
+            <span>SUBMIT UNBAN REQUEST</span>
           </button>
         </form>
       </div>
     </section>
 
-    <!-- 4. FOURTH: DIRECT SUPPORT CHANNELS (Cleaned) -->
-    <section class="px-3 py-3 w-full space-y-2.5">
-      <div class="text-center mb-1">
+    <!-- 5. FIFTH: SINGLE TELEGRAM CUSTOMER SUPPORT -->
+    <section class="px-3 py-3 w-full">
+      <div class="text-center mb-2">
         <h3 class="font-cyber text-xs font-bold text-zinc-400 uppercase tracking-widest">
-          DIRECT CUSTOMER SUPPORT
+          OFFICIAL CUSTOMER SUPPORT
         </h3>
       </div>
 
-      <!-- WhatsApp Direct Support Card -->
+      <!-- Single Telegram Direct Support Card -->
       <a 
-        href="https://wa.me/message/M5MH75KIQBXMD1?text=Sir%20payment%20successful%20hai%2C%20please%20unban%20karo" 
+        href="https://t.me/Idunbanstore" 
         target="_blank" 
-        class="block p-3 rounded-xl bg-gradient-to-r from-[#0d2618] to-[#0c1813] border border-emerald-500/40 shadow-md hover:border-emerald-400 active:scale-98 transition-all"
+        class="block p-3.5 rounded-2xl bg-gradient-to-r from-[#0e172a] via-[#0f213d] to-[#0a1324] border border-blue-500/40 neon-border-blue shadow-lg hover:border-blue-400 active:scale-98 transition-all"
       >
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center flex-shrink-0 shadow-md shadow-emerald-500/30">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/30">
             <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12.031 2C6.496 2 2 6.496 2 12.031c0 1.77.463 3.498 1.343 5.025L2 22l5.097-1.336a9.98 9.98 0 004.934 1.298h.004c5.535 0 10.031-4.496 10.031-10.031S17.566 2 12.031 2zm0 18.354h-.003a8.315 8.315 0 01-4.237-1.161l-.304-.18-3.146.825.84-3.068-.198-.315a8.31 8.31 0 01-1.277-4.423c0-4.596 3.738-8.334 8.334-8.334 2.228 0 4.321.868 5.895 2.443a8.28 8.28 0 012.44 5.892c-.002 4.596-3.742 8.335-8.344 8.335zm4.563-6.236c-.25-.125-1.478-.73-1.708-.813-.229-.083-.396-.125-.562.125-.167.25-.646.813-.792.98-.146.167-.292.188-.542.063-.25-.125-1.055-.389-2.01-1.24a7.482 7.482 0 01-1.39-1.727c-.146-.25-.015-.386.11-.51.113-.113.25-.292.375-.438.125-.146.167-.25.25-.417.083-.167.042-.313-.021-.438-.063-.125-.562-1.354-.771-1.854-.203-.487-.41-.421-.562-.429l-.479-.008c-.167 0-.438.063-.667.313-.229.25-.875.854-.875 2.083 0 1.229.896 2.417 1.021 2.583.125.167 1.762 2.69 4.27 3.771.597.258 1.063.412 1.426.527.6.19 1.146.163 1.577.099.48-.072 1.478-.604 1.687-1.188.208-.583.208-1.083.146-1.188-.063-.104-.229-.167-.479-.292z"/>
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
             </svg>
           </div>
           <div class="truncate flex-1 min-w-0">
             <div class="flex items-center justify-between">
-              <span class="text-[10px] text-emerald-400 font-cyber font-bold uppercase tracking-wider">OFFICIAL WHATSAPP</span>
-              <span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1 rounded">CHAT</span>
+              <span class="text-[10px] text-sky-400 font-cyber font-bold uppercase tracking-wider">OFFICIAL TELEGRAM</span>
+              <span class="text-[9px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded font-cyber">24x7 HELP</span>
             </div>
-            <div class="font-cyber text-xs font-bold text-white truncate">DIRECT WHATSAPP SUPPORT</div>
-            <div class="text-[10px] text-zinc-400 truncate">Sir payment successful screenshot help</div>
+            <div class="font-cyber text-sm font-bold text-white truncate">@Idunbanstore</div>
+            <div class="text-[10px] text-zinc-400 truncate">Tap here for direct unban assistance</div>
           </div>
         </div>
       </a>
-
-      <!-- Telegram Support Grid -->
-      <div class="grid grid-cols-2 gap-2 pt-1">
-        <a 
-          href="https://t.me/AYUSH_LIVEE_1" 
-          target="_blank" 
-          class="p-2.5 rounded-xl bg-[#10141f] border border-indigo-500/30 hover:border-indigo-400 flex flex-col justify-between active:scale-95 transition-all"
-        >
-          <div>
-            <div class="flex items-center justify-between mb-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span class="text-[8px] bg-indigo-500/20 text-indigo-300 px-1 rounded font-cyber">ADMIN</span>
-            </div>
-            <div class="font-cyber text-[11px] font-bold text-white truncate">AYUSH LIVE</div>
-            <div class="text-[9px] text-zinc-400 truncate">@AYUSH_LIVEE_1</div>
-          </div>
-          <span class="mt-2 text-[10px] bg-indigo-600 text-white font-cyber font-bold py-1 px-1.5 rounded text-center block">
-            CHAT HELP
-          </span>
-        </a>
-
-        <a 
-          href="https://t.me/Toxinhound" 
-          target="_blank" 
-          class="p-2.5 rounded-xl bg-[#10141f] border border-purple-500/30 hover:border-purple-400 flex flex-col justify-between active:scale-95 transition-all"
-        >
-          <div>
-            <div class="flex items-center justify-between mb-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span class="text-[8px] bg-purple-500/20 text-purple-300 px-1 rounded font-cyber">MODERATOR</span>
-            </div>
-            <div class="font-cyber text-[11px] font-bold text-white truncate">Toxinhound</div>
-            <div class="text-[9px] text-zinc-400 truncate">@Toxinhound</div>
-          </div>
-          <span class="mt-2 text-[10px] bg-purple-600 text-white font-cyber font-bold py-1 px-1.5 rounded text-center block">
-            CHAT HELP
-          </span>
-        </a>
-      </div>
     </section>
 
-    <!-- 5. FIFTH & LAST: GROWTH COUNTERS & PLATFORM STATS -->
-    <section class="px-3 pt-3 pb-6 w-full">
-      <div class="text-center mb-2">
-        <h4 class="font-cyber text-[11px] font-bold text-zinc-400 uppercase tracking-widest">
-          PLATFORM VERIFIED TRUST STATS
-        </h4>
-      </div>
-
+    <!-- 6. PLATFORM TRUST STATS -->
+    <section class="px-3 pt-2 pb-6 w-full">
       <div class="grid grid-cols-2 gap-2">
         <div class="p-3 rounded-xl bg-[#0f1118] border border-orange-500/30 flex flex-col justify-center">
           <div class="flex items-center justify-between mb-1">
             <span class="text-orange-400 text-xs">👥</span>
-            <span class="text-[8px] font-bold text-emerald-400 bg-emerald-500/10 px-1 py-0.5 rounded">+125 Today</span>
+            <span class="text-[8px] font-bold text-emerald-400 bg-emerald-500/10 px-1 py-0.5 rounded">+150 Today</span>
           </div>
-          <div class="font-cyber text-lg font-black text-white tracking-wide">10,000+</div>
+          <div class="font-cyber text-lg font-black text-white tracking-wide">12,500+</div>
           <div class="font-cyber text-[9px] font-bold text-orange-400 uppercase tracking-wider">Members Joined</div>
-          <p class="text-[9px] text-zinc-500 mt-1 leading-tight">Active official gaming network</p>
         </div>
 
         <div class="p-3 rounded-xl bg-[#0f1118] border border-emerald-500/30 flex flex-col justify-center">
@@ -360,26 +305,8 @@
             <span class="text-emerald-400 text-xs">🔓</span>
             <span class="text-[8px] font-bold text-emerald-400 bg-emerald-500/10 px-1 py-0.5 rounded">100% Proven</span>
           </div>
-          <div class="font-cyber text-lg font-black text-white tracking-wide">5,000+</div>
+          <div class="font-cyber text-lg font-black text-white tracking-wide">6,200+</div>
           <div class="font-cyber text-[9px] font-bold text-emerald-400 uppercase tracking-wider">IDs Unbanned</div>
-          <p class="text-[9px] text-zinc-500 mt-1 leading-tight">Safely restored IDs</p>
-        </div>
-      </div>
-
-      <div class="mt-2.5 p-2 rounded-lg bg-zinc-900/60 border border-zinc-800 flex items-center justify-around text-center">
-        <div>
-          <div class="text-[10px] font-cyber font-bold text-white">30 MIN</div>
-          <div class="text-[8px] text-zinc-400 uppercase">Avg. Delivery</div>
-        </div>
-        <div class="w-px h-6 bg-zinc-800"></div>
-        <div>
-          <div class="text-[10px] font-cyber font-bold text-emerald-400">99.8%</div>
-          <div class="text-[8px] text-zinc-400 uppercase">Success Rate</div>
-        </div>
-        <div class="w-px h-6 bg-zinc-800"></div>
-        <div>
-          <div class="text-[10px] font-cyber font-bold text-orange-400">24x7</div>
-          <div class="text-[8px] text-zinc-400 uppercase">Support Live</div>
         </div>
       </div>
     </section>
@@ -389,122 +316,117 @@
       <p class="text-[10px] text-zinc-500 font-cyber">
         © 2026 ID UNBAN STORE • ALL RIGHTS RESERVED
       </p>
-      <p class="text-[8px] text-zinc-600 mt-0.5">
-        Automated Server Queue Verification System
-      </p>
     </footer>
 
   </main>
 
-  <!-- Fullscreen QR Lightbox Modal -->
-  <div id="qrModal" class="fixed inset-0 bg-black/90 z-50 hidden flex-col items-center justify-center p-4 backdrop-blur-sm" onclick="closeQrModal()">
-    <div class="relative max-w-xs w-full bg-white p-3 rounded-2xl flex flex-col items-center" onclick="event.stopPropagation()">
-      <button class="absolute -top-3 -right-3 w-8 h-8 bg-red-600 text-white rounded-full font-bold flex items-center justify-center shadow-lg" onclick="closeQrModal()">✕</button>
-      <img src="https://raw.githubusercontent.com/fftoolindia/Only-photo/main/IMG_20261004_194603_613.jpg" alt="Zoomed QR" class="w-full h-auto rounded">
-      <p class="text-black font-cyber text-xs font-bold mt-2">AMOUNT TO PAY: ₹249/-</p>
-    </div>
-  </div>
-
-  <!-- Verified Success Notification Modal with Direct WhatsApp Forwarding -->
-  <div id="successModal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center p-4 backdrop-blur-md">
-    <div class="bg-[#0e121a] neon-border-green rounded-2xl max-w-xs w-full p-5 text-center shadow-2xl relative">
-      
-      <div class="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-emerald-500/30">
+  <!-- Success Request Modal With Direct Telegram Forwarding -->
+  <div id="requestModal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center p-4 backdrop-blur-md">
+    <div class="bg-[#0e121a] border border-blue-500/60 rounded-2xl max-w-xs w-full p-5 text-center shadow-2xl relative">
+      <div class="w-14 h-14 rounded-full bg-blue-500/20 text-sky-400 border border-blue-500 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-blue-500/30">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
         </svg>
       </div>
 
-      <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-cyber font-bold px-2 py-0.5 rounded border border-emerald-500/40 uppercase">
-        Payment Verified (₹249)
+      <span class="bg-blue-500/20 text-sky-400 text-[10px] font-cyber font-bold px-2 py-0.5 rounded border border-blue-500/40 uppercase">
+        Queue Initiated
       </span>
 
       <h4 class="font-cyber text-sm font-black text-white uppercase tracking-wide mt-2">
-        Verification Successful!
+        Request Submitted!
       </h4>
 
-      <div class="bg-black/60 border border-zinc-800 rounded-xl p-3 mt-3 text-left">
-        <p class="text-xs text-emerald-300 font-semibold leading-relaxed">
-          "Your payment received. Please wait for few minutes. Thanks for Id Unban store."
-        </p>
-      </div>
-
-      <p class="text-[10px] text-zinc-400 mt-2">
-        Ab niche diye gaye WhatsApp button se screenshot send karein:
+      <p class="text-xs text-zinc-300 mt-2">
+        Aapki ID queue me submit ho rahi hai. Direct Telegram support pe redirect kiya ja raha hai...
       </p>
 
-      <div class="mt-3 pt-2 border-t border-zinc-800 flex flex-col gap-2">
-        <a id="waSendBtn" href="#" target="_blank" class="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:opacity-90 text-white text-xs font-cyber font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-1.5">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.031 2C6.496 2 2 6.496 2 12.031c0 1.77.463 3.498 1.343 5.025L2 22l5.097-1.336a9.98 9.98 0 004.934 1.298h.004c5.535 0 10.031-4.496 10.031-10.031S17.566 2 12.031 2zm0 18.354h-.003a8.315 8.315 0 01-4.237-1.161l-.304-.18-3.146.825.84-3.068-.198-.315a8.31 8.31 0 01-1.277-4.423c0-4.596 3.738-8.334 8.334-8.334 2.228 0 4.321.868 5.895 2.443a8.28 8.28 0 012.44 5.892c-.002 4.596-3.742 8.335-8.344 8.335zm4.563-6.236c-.25-.125-1.478-.73-1.708-.813-.229-.083-.396-.125-.562.125-.167.25-.646.813-.792.98-.146.167-.292.188-.542.063-.25-.125-1.055-.389-2.01-1.24a7.482 7.482 0 01-1.39-1.727c-.146-.25-.015-.386.11-.51.113-.113.25-.292.375-.438.125-.146.167-.25.25-.417.083-.167.042-.313-.021-.438-.063-.125-.562-1.354-.771-1.854-.203-.487-.41-.421-.562-.429l-.479-.008c-.167 0-.438.063-.667.313-.229.25-.875.854-.875 2.083 0 1.229.896 2.417 1.021 2.583.125.167 1.762 2.69 4.27 3.771.597.258 1.063.412 1.426.527.6.19 1.146.163 1.577.099.48-.072 1.478-.604 1.687-1.188.208-.583.208-1.083.146-1.188-.063-.104-.229-.167-.479-.292z"/></svg>
-          SEND ON WHATSAPP NOW
+      <div class="mt-4 pt-2 border-t border-zinc-800 flex flex-col gap-2">
+        <a id="tgDirectBtn" href="https://t.me/Idunbanstore" target="_blank" class="w-full bg-gradient-to-r from-blue-600 to-sky-500 hover:opacity-90 text-white text-xs font-cyber font-bold py-2.5 rounded-xl shadow-lg shadow-blue-600/30 flex items-center justify-center gap-1.5">
+          OPEN TELEGRAM NOW
         </a>
-        <button onclick="closeSuccessModal()" class="w-full bg-zinc-800 text-zinc-300 text-xs py-2 rounded-xl font-medium">
-          CLOSE WINDOW
+        <button onclick="closeRequestModal()" class="w-full bg-zinc-800 text-zinc-300 text-xs py-2 rounded-xl font-medium">
+          CLOSE
         </button>
       </div>
     </div>
   </div>
 
-  <!-- JavaScript Logic -->
+  <!-- JavaScript for Live Comments & Telegram Redirection -->
   <script>
-    let selectedImageFile = null;
+    // Pool of Indian Boys and Girls usernames with praise comments
+    const indianCommentsPool = [
+      { user: "Rohan_Gamer99", color: "bg-purple-600", msg: "Thanks bhai sach me ID unban ho gaya! 100% real 🔥" },
+      { user: "Pooja_Sharma_FF", color: "bg-pink-600", msg: "Thanks bhai yeh real hai, meri 68 level ki ID wapas mil gayi ❤️" },
+      { user: "Amit_Vip_ff", color: "bg-blue-600", msg: "Bhai working hai 100%! Only 20 mins me ID start ho gayi." },
+      { user: "Neha_verma77", color: "bg-rose-500", msg: "Thanks bhaiya! Mujhe laga tha fake hoga par unban ho gaya 😍" },
+      { user: "Sahil_yt_official", color: "bg-emerald-600", msg: "Thanks bhai eya real hai bilkul! Trusted portal OP 🎯" },
+      { user: "Anjali_Rajput_07", color: "bg-fuchsia-600", msg: "Bhai sach me open ho gaya game! Thank u so much 😭❤" },
+      { user: "Deepak_Chauhan", color: "bg-indigo-600", msg: "Working fine! 30 seconds me server queue activate ho gaya." },
+      { user: "Priya_Gaming_Girl", color: "bg-violet-600", msg: "Thanks bhai! It really works, 100% genuine portal ❤✨" },
+      { user: "Vikram_Thakur", color: "bg-amber-600", msg: "Arey bhai thanks dil se, blacklist ID remove ho gayi 🔥" },
+      { user: "Sneha_Roy_ff", color: "bg-red-500", msg: "Thanks bhai ye sach me real hai! Meri friend ki bhi ID aa gayi." },
+      { user: "Karan_Gupta_09", color: "bg-cyan-600", msg: "Vip recovery working hai, no issues found thanks bro!" },
+      { user: "Riya_Singh_99", color: "bg-pink-500", msg: "Thanks bhaiya! Finally meri game start ho gayi 😍" }
+    ];
 
-    function openQrModal() {
-      const modal = document.getElementById('qrModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-    function closeQrModal() {
-      const modal = document.getElementById('qrModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
+    const feed = document.getElementById('commentsFeed');
+    let viewerCount = 1530;
 
-    function previewUpload(e) {
-      const file = e.target.files[0];
-      if (file) {
-        selectedImageFile = file;
-        const reader = new FileReader();
-        reader.onload = function(evt) {
-          document.getElementById('previewImg').src = evt.target.result;
-          document.getElementById('dropText').classList.add('hidden');
-          document.getElementById('previewBox').classList.remove('hidden');
-          hideScanStatus();
-        }
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function showScanStatus(type, msg) {
-      const el = document.getElementById('scanStatus');
-      el.classList.remove('hidden', 'bg-red-950/80', 'text-red-300', 'border-red-600', 'bg-yellow-950/80', 'text-yellow-300', 'border-yellow-600', 'bg-emerald-950/80', 'text-emerald-300', 'border-emerald-600');
+    // Helper to create a single comment DOM element
+    function createCommentElement(data, timeAgo = "just now") {
+      const div = document.createElement('div');
+      div.className = "flex items-start gap-2.5 bg-black/40 p-2 rounded-xl border border-zinc-800/80 animate-comment";
       
-      if (type === 'loading') {
-        el.className = 'rounded-lg p-2.5 text-center text-xs font-semibold bg-yellow-950/80 text-yellow-300 border border-yellow-600 block';
-      } else if (type === 'error') {
-        el.className = 'rounded-lg p-2.5 text-center text-xs font-semibold bg-red-950/80 text-red-300 border border-red-600 block';
-      } else if (type === 'success') {
-        el.className = 'rounded-lg p-2.5 text-center text-xs font-semibold bg-emerald-950/80 text-emerald-300 border border-emerald-600 block';
+      const initial = data.user.charAt(0).toUpperCase();
+
+      div.innerHTML = `
+        <div class="w-7 h-7 rounded-full ${data.color} flex items-center justify-center text-white text-[11px] font-black flex-shrink-0 shadow-sm">
+          ${initial}
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-1.5">
+            <span class="text-[11px] font-bold text-zinc-200 truncate font-cyber">${data.user}</span>
+            <span class="text-[9px] text-zinc-500 ml-auto flex-shrink-0">${timeAgo}</span>
+          </div>
+          <p class="text-[11px] text-zinc-300 mt-0.5 leading-tight font-medium">
+            ${data.msg}
+          </p>
+        </div>
+      `;
+      return div;
+    }
+
+    // Load initial 4 comments
+    for (let i = 0; i < 4; i++) {
+      feed.appendChild(createCommentElement(indianCommentsPool[i], `${(i + 1) * 2}s ago`));
+    }
+
+    // Interval to push fresh comments automatically
+    let poolIndex = 4;
+    setInterval(() => {
+      const nextComment = indianCommentsPool[poolIndex % indianCommentsPool.length];
+      poolIndex++;
+
+      const newElem = createCommentElement(nextComment, "just now");
+      feed.prepend(newElem);
+
+      if (feed.children.length > 8) {
+        feed.removeChild(feed.lastElementChild);
       }
-      el.innerHTML = msg;
-    }
 
-    function hideScanStatus() {
-      document.getElementById('scanStatus').classList.add('hidden');
-    }
+      viewerCount += Math.floor(Math.random() * 5) - 2;
+      document.getElementById('liveViewerCount').innerText = viewerCount.toLocaleString();
+    }, 2800);
 
-    async function handleFormSubmit(e) {
+    // Form Handling & Direct Telegram Redirection
+    function handleFormSubmit(e) {
       e.preventDefault();
-      
       const uid = document.getElementById('playerUid').value.trim();
       const phone = document.getElementById('userPhone').value.trim();
-      const utr = document.getElementById('utrNo').value.trim();
       const submitBtn = document.getElementById('submitBtn');
 
-      if (!uid || !phone || !utr || !selectedImageFile) {
-        showScanStatus('error', '⚠️ Kripya sabhi details aur screenshot upload karein.');
-        return;
-      }
+      if (!uid || !phone) return;
 
       submitBtn.disabled = true;
       submitBtn.innerHTML = `
@@ -512,71 +434,24 @@
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
-        <span>VERIFYING NAME & AMOUNT (OCR)...</span>
+        <span>CONNECTING TO TELEGRAM...</span>
       `;
-      showScanStatus('loading', '⏳ Scanning screenshot for "Shahadat Ali" & "₹249"... Plz wait...');
 
-      try {
-        const result = await Tesseract.recognize(selectedImageFile, 'eng');
-        const text = (result.data.text || '').toLowerCase().replace(/\s+/g, ' ');
+      const telegramUrl = "https://t.me/Idunbanstore";
 
-        const hasShahadat = text.includes('shahadat') || text.includes('ali') || text.includes('tali@');
-        // Check for 249 in payment proof
-        const has249 = text.includes('249') || text.includes('249.00') || text.includes('₹249');
+      // Show modal confirmation
+      const modal = document.getElementById('requestModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
 
-        if (!hasShahadat || !has249) {
-          let errorMsg = '❌ <b>Verification Failed!</b><br>';
-          if (!hasShahadat) {
-            errorMsg += '• Screenshot me Receiver Name "<b>Shahadat Ali</b>" nahi mila.<br>';
-          }
-          if (!has249) {
-            errorMsg += '• Payment amount "<b>₹249</b>" match nahi hua. (Kam amount accept nahi hoga).';
-          }
-          showScanStatus('error', errorMsg);
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = `<span>RE-TRY VERIFICATION (₹249)</span>`;
-          return;
-        }
-
-        hideScanStatus();
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `<span>SUBMIT & VERIFY PAYMENT (₹249)</span>`;
-
-        const waMsg = encodeURIComponent(
-          `Sir payment successful!\n\n` +
-          `Maine ₹249 Shahadat Ali ko successfully pay kar diya hai.\n` +
-          `• Player UID: ${uid}\n` +
-          `• Contact No: ${phone}\n` +
-          `• UTR No: ${utr}\n\n` +
-          `Screenshot attach kar raha hu sir, please ID unban kar dijiye. Thanks for Id Unban store!`
-        );
-
-        const waLink = `https://wa.me/message/M5MH75KIQBXMD1?text=${waMsg}`;
-        document.getElementById('waSendBtn').setAttribute('href', waLink);
-
-        const modal = document.getElementById('successModal');
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-
-        setTimeout(() => {
-          window.open(waLink, '_blank');
-        }, 1500);
-
-        document.getElementById('unbanForm').reset();
-        selectedImageFile = null;
-        document.getElementById('dropText').classList.remove('hidden');
-        document.getElementById('previewBox').classList.add('hidden');
-
-      } catch (err) {
-        console.error(err);
-        showScanStatus('error', '⚠️ Scan karne me samasya aayi. Kripya saaf screenshot lagayein.');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `<span>SUBMIT & VERIFY PAYMENT (₹249)</span>`;
-      }
+      // Auto redirect to Telegram
+      setTimeout(() => {
+        window.location.href = telegramUrl;
+      }, 1000);
     }
 
-    function closeSuccessModal() {
-      const modal = document.getElementById('successModal');
+    function closeRequestModal() {
+      const modal = document.getElementById('requestModal');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
     }
