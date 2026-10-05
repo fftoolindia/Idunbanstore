@@ -57,6 +57,10 @@
       border: 1px solid rgba(59, 130, 246, 0.4);
       box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
     }
+    .neon-border-red {
+      border: 1px solid rgba(255, 42, 42, 0.45);
+      box-shadow: 0 0 25px rgba(255, 42, 42, 0.2);
+    }
     .comment-scroll::-webkit-scrollbar {
       width: 3px;
     }
@@ -97,12 +101,12 @@
           </p>
         </div>
       </div>
-      <a href="#submit-section" class="flex-shrink-0 bg-gradient-to-r from-orange-500 to-red-600 hover:opacity-90 text-white font-cyber text-[10px] font-bold py-1.5 px-3 rounded-md shadow-lg shadow-red-600/30 active:scale-95 transition-all text-center">
-        UNBAN ID
+      <a href="#pay-section" class="flex-shrink-0 bg-gradient-to-r from-orange-500 to-red-600 hover:opacity-90 text-white font-cyber text-[10px] font-bold py-1.5 px-3 rounded-md shadow-lg shadow-red-600/30 active:scale-95 transition-all text-center">
+        UNBAN (₹249)
       </a>
     </header>
 
-    <!-- 1. FIRST: OFFICIAL BANNER / THUMBNAIL -->
+    <!-- 1. OFFICIAL BANNER / THUMBNAIL -->
     <section class="p-3 w-full">
       <div class="rounded-xl overflow-hidden border border-orange-500/30 shadow-lg shadow-orange-500/10 bg-black">
         <img 
@@ -122,7 +126,7 @@
       </div>
     </section>
 
-    <!-- 2. SECOND: PROOF & GUIDE VIDEO -->
+    <!-- 2. PROOF & GUIDE VIDEO -->
     <section class="px-3 pt-1 pb-3 w-full">
       <div class="bg-gradient-to-b from-[#131722] to-[#0c0d14] rounded-xl p-2.5 border border-zinc-800 shadow-md">
         <div class="flex items-center justify-between mb-2">
@@ -145,12 +149,12 @@
           </video>
         </div>
         <p class="text-[10px] text-zinc-400 mt-1.5 text-center">
-          Video dekh kar step by step unban process follow karein.
+          QR scan karke payment karein aur Telegram par contact karein.
         </p>
       </div>
     </section>
 
-    <!-- 3. THIRD: LIVE REAL-TIME CHAT & FEEDBACK WIDGET -->
+    <!-- 3. LIVE REAL-TIME CHAT & FEEDBACK WIDGET -->
     <section class="px-3 py-2 w-full">
       <div class="bg-[#0b0c13] rounded-2xl p-3 border border-purple-500/30 neon-border-purple relative shadow-2xl overflow-hidden">
         
@@ -170,7 +174,7 @@
         </div>
 
         <!-- Live Comments Feed Container -->
-        <div id="commentsFeed" class="comment-scroll space-y-2 max-h-[300px] overflow-y-auto pr-1">
+        <div id="commentsFeed" class="comment-scroll space-y-2 max-h-[220px] overflow-y-auto pr-1">
           <!-- Initial Comments Loaded Dynamically via JS -->
         </div>
 
@@ -190,23 +194,56 @@
       </div>
     </section>
 
-    <!-- 4. FOURTH: ID UNBAN REQUEST SUBMISSION FORM -->
-    <section id="submit-section" class="px-3 py-2 w-full">
-      <div class="bg-gradient-to-b from-[#15121b] to-[#0c0d14] rounded-2xl p-3.5 border border-orange-500/40 relative shadow-xl">
+    <!-- 4. QR PAYMENT & TELEGRAM SUBMISSION SECTION -->
+    <section id="pay-section" class="px-3 py-2 w-full">
+      <div class="bg-gradient-to-b from-[#15121b] to-[#0c0d14] rounded-2xl p-3.5 neon-border-red relative">
         
+        <!-- Price Header -->
         <div class="text-center mb-3">
-          <span class="bg-orange-500 text-white font-cyber text-[9px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider">
-            OFFICIAL SERVER QUEUE
+          <span class="bg-red-500 text-white font-cyber text-[9px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider">
+            Special Discount
           </span>
-          <h3 class="font-cyber text-sm font-black text-white mt-1.5 leading-snug">
-            SUBMIT BANNED ID DETAILS
+          <h3 class="font-cyber text-sm font-black text-white mt-1 leading-snug">
+            PAID ID UNBAN KE LIYE <span class="text-orange-400">₹249</span> IS QR ME PAY KAREIN
           </h3>
-          <p class="text-[10px] text-zinc-400 mt-0.5">
-            Enter player info to initiate server unban protocol.
+          <div class="flex items-center justify-center gap-2 mt-1">
+            <span class="text-xs line-through text-zinc-500 font-bold">₹629</span>
+            <span class="text-base font-black text-emerald-400 font-cyber">₹249 ONLY</span>
+            <span class="bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-1.5 py-0.2 rounded border border-emerald-500/30">60% OFF</span>
+          </div>
+        </div>
+
+        <!-- Instructions Notice -->
+        <div class="bg-amber-950/40 border border-amber-600/50 rounded-xl p-2.5 mb-3.5 shadow-md">
+          <div class="flex items-start gap-2">
+            <span class="text-amber-400 text-sm">ℹ️</span>
+            <div class="text-[11px] leading-snug text-amber-200">
+              <strong class="text-white block font-cyber text-[10px] uppercase">Payment & Process Rule:</strong>
+              Pehle is QR code par <b>₹249</b> payment karein, phir niche details bhar kar submit karein aur direct Telegram par message bhejein.
+            </div>
+          </div>
+        </div>
+
+        <!-- QR Code Display Box -->
+        <div class="flex flex-col items-center justify-center mb-4">
+          <div class="p-2 bg-white rounded-xl shadow-xl border-2 border-orange-500/80 cursor-pointer relative group" onclick="openQrModal()">
+            <img 
+              id="qrImgDisplay"
+              src="https://raw.githubusercontent.com/fftoolindia/Idunbanstore/main/IMG_20261005_143937_132.jpg" 
+              alt="Scan QR To Pay 249" 
+              class="w-48 h-auto object-contain rounded"
+            >
+            <div class="absolute inset-0 bg-black/40 rounded opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
+              <span class="bg-black/80 text-white font-cyber text-[10px] px-2 py-1 rounded">TAP TO ENLARGE</span>
+            </div>
+          </div>
+          <p class="text-[10px] text-zinc-400 mt-2 font-medium">
+            Scan using PhonePe / Google Pay / Paytm / Any UPI App
           </p>
         </div>
 
-        <form id="unbanForm" onsubmit="handleFormSubmit(event)" class="space-y-3">
+        <!-- Form Submission -->
+        <form id="unbanForm" onsubmit="handleFormSubmit(event)" class="space-y-2.5">
           <div>
             <label class="block text-[11px] font-cyber text-zinc-300 mb-1">
               BANNED PLAYER UID / GAME ID <span class="text-red-500">*</span>
@@ -222,7 +259,7 @@
 
           <div>
             <label class="block text-[11px] font-cyber text-zinc-300 mb-1">
-              WHATSAPP / CONTACT NO <span class="text-red-500">*</span>
+              TELEGRAM / CONTACT NUMBER <span class="text-red-500">*</span>
             </label>
             <input 
               type="tel" 
@@ -235,36 +272,38 @@
 
           <div>
             <label class="block text-[11px] font-cyber text-zinc-300 mb-1">
-              BAN REASON / TYPE (OPTIONAL)
+              12-DIGIT UPI UTR / TRANSACTION ID <span class="text-red-500">*</span>
             </label>
-            <select id="banType" class="w-full bg-black/70 border border-zinc-700 focus:border-orange-500 rounded-lg px-3 py-2 text-zinc-300 text-xs outline-none transition-colors">
-              <option value="Config / Glitch File Ban">Config / Glitch File Ban</option>
-              <option value="Temporary Suspended 3rd Party">Temporary Suspended 3rd Party</option>
-              <option value="Abnormal Activities Detected">Abnormal Activities Detected</option>
-              <option value="Permanent Blacklisted ID">Permanent Blacklisted ID</option>
-            </select>
+            <input 
+              type="text" 
+              id="utrNo" 
+              required 
+              placeholder="Payment ke baad mila 12-digit UTR number" 
+              maxlength="16"
+              class="w-full bg-black/70 border border-zinc-700 focus:border-orange-500 rounded-lg px-3 py-2 text-white text-xs outline-none transition-colors"
+            >
           </div>
 
           <button 
             type="submit" 
             id="submitBtn"
-            class="w-full mt-2 bg-gradient-to-r from-orange-500 via-red-600 to-orange-500 bg-[length:200%_auto] hover:bg-right font-cyber text-xs font-black text-white py-3 rounded-xl shadow-lg shadow-orange-500/30 active:scale-98 transition-all tracking-wider uppercase flex items-center justify-center gap-2"
+            class="w-full mt-2 bg-gradient-to-r from-blue-600 via-sky-500 to-blue-600 bg-[length:200%_auto] hover:bg-right font-cyber text-xs font-black text-white py-3 rounded-xl shadow-lg shadow-blue-500/30 active:scale-98 transition-all tracking-wider uppercase flex items-center justify-center gap-2"
           >
-            <span>SUBMIT UNBAN REQUEST</span>
+            <span>SUBMIT & MESSAGE ON TELEGRAM</span>
           </button>
         </form>
+
       </div>
     </section>
 
-    <!-- 5. FIFTH: SINGLE TELEGRAM CUSTOMER SUPPORT -->
-    <section class="px-3 py-3 w-full">
+    <!-- 5. SINGLE DIRECT TELEGRAM SUPPORT -->
+    <section class="px-3 py-2.5 w-full">
       <div class="text-center mb-2">
         <h3 class="font-cyber text-xs font-bold text-zinc-400 uppercase tracking-widest">
-          OFFICIAL CUSTOMER SUPPORT
+          DIRECT TELEGRAM SUPPORT
         </h3>
       </div>
 
-      <!-- Single Telegram Direct Support Card -->
       <a 
         href="https://t.me/Idunbanstore" 
         target="_blank" 
@@ -282,7 +321,7 @@
               <span class="text-[9px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded font-cyber">24x7 HELP</span>
             </div>
             <div class="font-cyber text-sm font-bold text-white truncate">@Idunbanstore</div>
-            <div class="text-[10px] text-zinc-400 truncate">Tap here for direct unban assistance</div>
+            <div class="text-[10px] text-zinc-400 truncate">Payment screenshot aur unban request direct bhejein</div>
           </div>
         </div>
       </a>
@@ -320,6 +359,15 @@
 
   </main>
 
+  <!-- Fullscreen QR Lightbox Modal -->
+  <div id="qrModal" class="fixed inset-0 bg-black/90 z-50 hidden flex-col items-center justify-center p-4 backdrop-blur-sm" onclick="closeQrModal()">
+    <div class="relative max-w-xs w-full bg-white p-3 rounded-2xl flex flex-col items-center" onclick="event.stopPropagation()">
+      <button class="absolute -top-3 -right-3 w-8 h-8 bg-red-600 text-white rounded-full font-bold flex items-center justify-center shadow-lg" onclick="closeQrModal()">✕</button>
+      <img src="https://raw.githubusercontent.com/fftoolindia/Idunbanstore/main/IMG_20261005_143937_132.jpg" alt="Zoomed QR" class="w-full h-auto rounded">
+      <p class="text-black font-cyber text-xs font-bold mt-2">AMOUNT TO PAY: ₹249/-</p>
+    </div>
+  </div>
+
   <!-- Success Request Modal With Direct Telegram Forwarding -->
   <div id="requestModal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center p-4 backdrop-blur-md">
     <div class="bg-[#0e121a] border border-blue-500/60 rounded-2xl max-w-xs w-full p-5 text-center shadow-2xl relative">
@@ -330,7 +378,7 @@
       </div>
 
       <span class="bg-blue-500/20 text-sky-400 text-[10px] font-cyber font-bold px-2 py-0.5 rounded border border-blue-500/40 uppercase">
-        Queue Initiated
+        Queue Registered
       </span>
 
       <h4 class="font-cyber text-sm font-black text-white uppercase tracking-wide mt-2">
@@ -338,12 +386,12 @@
       </h4>
 
       <p class="text-xs text-zinc-300 mt-2">
-        Aapki ID queue me submit ho rahi hai. Direct Telegram support pe redirect kiya ja raha hai...
+        Aapko payment screenshot send karne ke liye <b>Telegram (@Idunbanstore)</b> par redirect kiya ja raha hai...
       </p>
 
       <div class="mt-4 pt-2 border-t border-zinc-800 flex flex-col gap-2">
         <a id="tgDirectBtn" href="https://t.me/Idunbanstore" target="_blank" class="w-full bg-gradient-to-r from-blue-600 to-sky-500 hover:opacity-90 text-white text-xs font-cyber font-bold py-2.5 rounded-xl shadow-lg shadow-blue-600/30 flex items-center justify-center gap-1.5">
-          OPEN TELEGRAM NOW
+          OPEN TELEGRAM TO SEND PROOF
         </a>
         <button onclick="closeRequestModal()" class="w-full bg-zinc-800 text-zinc-300 text-xs py-2 rounded-xl font-medium">
           CLOSE
@@ -352,9 +400,21 @@
     </div>
   </div>
 
-  <!-- JavaScript for Live Comments & Telegram Redirection -->
+  <!-- JavaScript Logic -->
   <script>
-    // Pool of Indian Boys and Girls usernames with praise comments
+    // QR Lightbox Controls
+    function openQrModal() {
+      const modal = document.getElementById('qrModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    function closeQrModal() {
+      const modal = document.getElementById('qrModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Dynamic Live Comments Simulation
     const indianCommentsPool = [
       { user: "Rohan_Gamer99", color: "bg-purple-600", msg: "Thanks bhai sach me ID unban ho gaya! 100% real 🔥" },
       { user: "Pooja_Sharma_FF", color: "bg-pink-600", msg: "Thanks bhai yeh real hai, meri 68 level ki ID wapas mil gayi ❤️" },
@@ -373,11 +433,9 @@
     const feed = document.getElementById('commentsFeed');
     let viewerCount = 1530;
 
-    // Helper to create a single comment DOM element
     function createCommentElement(data, timeAgo = "just now") {
       const div = document.createElement('div');
       div.className = "flex items-start gap-2.5 bg-black/40 p-2 rounded-xl border border-zinc-800/80 animate-comment";
-      
       const initial = data.user.charAt(0).toUpperCase();
 
       div.innerHTML = `
@@ -397,21 +455,19 @@
       return div;
     }
 
-    // Load initial 4 comments
+    // Load initial comments
     for (let i = 0; i < 4; i++) {
       feed.appendChild(createCommentElement(indianCommentsPool[i], `${(i + 1) * 2}s ago`));
     }
 
-    // Interval to push fresh comments automatically
+    // Rotate new comments
     let poolIndex = 4;
     setInterval(() => {
       const nextComment = indianCommentsPool[poolIndex % indianCommentsPool.length];
       poolIndex++;
+      feed.prepend(createCommentElement(nextComment, "just now"));
 
-      const newElem = createCommentElement(nextComment, "just now");
-      feed.prepend(newElem);
-
-      if (feed.children.length > 8) {
+      if (feed.children.length > 7) {
         feed.removeChild(feed.lastElementChild);
       }
 
@@ -419,14 +475,15 @@
       document.getElementById('liveViewerCount').innerText = viewerCount.toLocaleString();
     }, 2800);
 
-    // Form Handling & Direct Telegram Redirection
+    // Form Handling with Direct Telegram Forward
     function handleFormSubmit(e) {
       e.preventDefault();
       const uid = document.getElementById('playerUid').value.trim();
       const phone = document.getElementById('userPhone').value.trim();
+      const utr = document.getElementById('utrNo').value.trim();
       const submitBtn = document.getElementById('submitBtn');
 
-      if (!uid || !phone) return;
+      if (!uid || !phone || !utr) return;
 
       submitBtn.disabled = true;
       submitBtn.innerHTML = `
@@ -434,20 +491,18 @@
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
-        <span>CONNECTING TO TELEGRAM...</span>
+        <span>OPENING TELEGRAM...</span>
       `;
 
       const telegramUrl = "https://t.me/Idunbanstore";
 
-      // Show modal confirmation
       const modal = document.getElementById('requestModal');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
 
-      // Auto redirect to Telegram
       setTimeout(() => {
         window.location.href = telegramUrl;
-      }, 1000);
+      }, 1200);
     }
 
     function closeRequestModal() {
